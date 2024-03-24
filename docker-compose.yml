@@ -8,6 +8,8 @@ services:
     restart: always
     ports:
       - 5432:5432
+    env_file: 
+      - .env
     environment:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
@@ -16,6 +18,8 @@ services:
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
+    env_file: 
+      - .env
     environment:
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
@@ -26,10 +30,12 @@ services:
 
   app:
     container_name: app
-    build: . # find the Dockerfile in the directory . and build the image
-    command: bash -c "uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+    build: .
+    env_file:
+      - .env
+    command: bash -c "alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
     volumes:
-      - .:/apps
+      - .:/app
     ports:
       - 8000:8000
     depends_on:
