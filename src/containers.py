@@ -2,6 +2,9 @@
 
 from dependency_injector import containers, providers
 
+from src.bahan.repositories import BahanRepository
+from src.bahan.services import BahanService
+
 from .database import Database
 from src.user.repositories import UserRepository
 from src.user.services import UserService
@@ -17,7 +20,8 @@ sys.path.append(BASE_DIR)
 class Container(containers.DeclarativeContainer):
 
     wiring_config = containers.WiringConfiguration(modules=[
-        "src.user.endpoints"
+        "src.user.endpoints",
+        "src.bahan.endpoints"
     ])
 
     config = providers.Configuration(yaml_files=["docker-compose.yml"])
@@ -32,4 +36,14 @@ class Container(containers.DeclarativeContainer):
     user_service = providers.Factory(
         UserService,
         user_repository=user_repository,
+    )
+    
+    bahan_repository = providers.Factory(
+        BahanRepository,
+        session_factory=db.provided.session,
+    )
+
+    bahan_service = providers.Factory(
+        BahanService,
+        bahan_repository=bahan_repository,
     )
