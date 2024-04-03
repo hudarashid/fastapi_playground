@@ -8,7 +8,7 @@ from .repositories import NotFoundError
 router = APIRouter()
 
 
-@router.get("/users")
+@router.get("/users", tags=["users"])
 @inject
 def get_list(
         user_service: UserService = Depends(Provide[Container.user_service]),
@@ -16,7 +16,7 @@ def get_list(
     return user_service.get_users()
 
 
-@router.get("/users/{user_id}")
+@router.get("/users/{user_id}", tags=["users"])
 @inject
 def get_by_id(
         user_id: int,
@@ -28,7 +28,7 @@ def get_by_id(
         return Response(status_code=status.HTTP_404_NOT_FOUND)
 
 
-@router.post("/users", status_code=status.HTTP_201_CREATED)
+@router.post("/users", status_code=status.HTTP_201_CREATED, tags=["users"])
 @inject
 def add(
         user_service: UserService = Depends(Provide[Container.user_service]),
@@ -36,7 +36,7 @@ def add(
     return user_service.create_user()
 
 
-@router.delete("/users/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/users/{user_id}", status_code=status.HTTP_204_NO_CONTENT, tags=["users"])
 @inject
 def remove(
         user_id: int,

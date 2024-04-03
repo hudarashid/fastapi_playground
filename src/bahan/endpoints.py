@@ -10,7 +10,7 @@ from .schemas import Bahan as BahanSchema, UpdateBahan
 router = APIRouter()
 
 
-@router.get("/bahan")
+@router.get("/bahan", tags=["bahan"])
 @inject
 def get_list(
         bahan_service: BahanService = Depends(Provide[Container.bahan_service]),
@@ -18,7 +18,7 @@ def get_list(
     return bahan_service.get_bahan()
 
 
-@router.get("/bahan/{bahan_id}")
+@router.get("/bahan/{bahan_id}", tags=["bahan"])
 @inject
 def get_by_id(
         bahan_id: int,
@@ -30,7 +30,7 @@ def get_by_id(
         return Response(status_code=status.HTTP_404_NOT_FOUND)
 
 
-@router.post("/bahan", status_code=status.HTTP_201_CREATED)
+@router.post("/bahan", status_code=status.HTTP_201_CREATED, tags=["bahan"])
 @inject
 def add(
         bahan_schema: BahanSchema,
@@ -38,7 +38,7 @@ def add(
 ):
     return bahan_service.create_bahan(bahan_schema)
 
-@router.patch("/bahan/{bahan_id}", status_code=status.HTTP_200_OK)
+@router.patch("/bahan/{bahan_id}", status_code=status.HTTP_200_OK, tags=["bahan"])
 @inject
 def patch(
         bahan_id: int,
@@ -48,7 +48,7 @@ def patch(
     return bahan_service.update_bahan(bahan_id, update_bahan)
 
 
-@router.delete("/bahan/{bahan_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/bahan/{bahan_id}", status_code=status.HTTP_204_NO_CONTENT, tags=["bahan"])
 @inject
 def remove(
         bahan_id: int,
