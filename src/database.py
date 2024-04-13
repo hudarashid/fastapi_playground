@@ -1,5 +1,5 @@
-from contextlib import contextmanager, AbstractContextManager
-from typing import Callable, Generator, Iterator
+from contextlib import contextmanager
+from typing import Generator
 import logging
 
 from sqlalchemy import create_engine, orm
