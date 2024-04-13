@@ -4,7 +4,7 @@ from fastapi import FastAPI
 
 from .containers import Container
 from src.user import endpoints as user_endpoints
-from src.bahan import endpoints as bahan_endpoints
+from src.product import endpoints as product_endpoints
 
 
 def create_app() -> FastAPI:
@@ -16,7 +16,7 @@ def create_app() -> FastAPI:
     app = FastAPI()
     app.container = container
     app.include_router(user_endpoints.router)
-    app.include_router(bahan_endpoints.router)
+    app.include_router(product_endpoints.router)
     return app
 
 

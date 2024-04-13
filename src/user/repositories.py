@@ -4,6 +4,7 @@ from typing import Callable, Iterator
 from sqlalchemy.orm import Session
 
 from .models import User
+from .schemas import User as UserSchema
 
 
 class UserRepository:
@@ -22,9 +23,9 @@ class UserRepository:
                 raise UserNotFoundError(user_id)
             return user
 
-    def add(self, email: str, password: str, is_active: bool = True) -> User:
+    def add(self, user_schema: UserSchema) -> User:
         with self.session_factory() as session:
-            user = User(email=email, hashed_password=password, is_active=is_active)
+            user = User(email=user_schema.email, hashed_password=user_schema.hashed_password, is_active=user_schema.is_active)
             session.add(user)
             session.commit()
             session.refresh(user)

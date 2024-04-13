@@ -1,4 +1,5 @@
 docker-compose build = to build the docker image
+docker-compose up = run the docker images
 
 alembic init alembic = create migration folder
 

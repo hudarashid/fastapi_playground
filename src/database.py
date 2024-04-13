@@ -9,7 +9,6 @@ from sqlalchemy.orm import Session
 logger = logging.getLogger(__name__)
 
 Base = declarative_base()
-metadata = Base.metadata
 
 
 class Database:

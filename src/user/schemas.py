@@ -1,20 +1,7 @@
-## redo
-
+from typing import Optional
 from pydantic import BaseModel
 
-#like serializer
-class Book(BaseModel):
-    title: str
-    rating: int
-    author_id: int
-
-    class Config:
-        orm_mode = True
-
-
-class Author(BaseModel):
-    name: str
-    age: int
-
-    class Config: 
-        orm_mode = True
+class User(BaseModel):
+    email: str
+    hashed_password: str
+    is_active: bool
